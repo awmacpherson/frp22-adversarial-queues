@@ -42,29 +42,6 @@
 %  .bbl format 2.8 biblatex 3.7 Biber 2.7
 %  (as of May 2020, arXiv uses TeXLive 2016)
 
-
-\providecommand \citepath [3] {\pgfkeys{#1/.code={\cite[#3]{#2}}}}
-
-\let\rootdir\relax % to be overwritten by user
-\DeclareFieldFormat{path}{\href{\rootdir/#1}{\texttt{#1}}}
-\DeclareFieldFormat{v}{(v.#1)}
-
-\DeclareBibliographyDriver{lsentry}%
-  {\hfill \printfield{title} \printfield[v]{version}}
-
-\defbibheading{lsheading} {\paragraph{#1}}
-\defbibenvironment{ls}
-  {\list{\printfield[path]{url}}
-    {
-    \setlength{\leftmargin}{0pt}
-    \setlength{\itemindent}{\labelwidth+\biblabelsep}
-    \setlength{\itemsep}{\bibitemsep}
-    \setlength{\parsep}{\bibparsep}
-    } 
-  }
-  {\endlist}
-  {\item}
-
 \RequirePackage{csquotes} % prevents a warning for using biblatex with babel
 
 
@@ -74,13 +51,6 @@
 
 % These packages must be loaded after amsmath because the latter redefines
 % the \label command for equation numbering.
-
-% TO DO: consider using zref
-% OR a key-value system like pgfkeys or L3 keys for hierarchical labels
-
-%\RequirePackage{xr-hyper}    % LOAD BEFORE HYPERREF
-
-% Provides \externaldocument[cite_prefix]{path}.
 
 % This is the tool to make documents interdependent.
 % It is used by stacksproject.
@@ -100,12 +70,3 @@
 
 % Patches hyperref so that it only needs one run and no auxiliary file 
 % (otherwise .out is generated). Cf. https://ctan.org/pkg/bookmark
-
-% TO DO: use colorlinks=true with xcolor (or with package default hycolor)
-% Which commands does this redefine?
-
-
-\RequirePackage[inline]{showlabels}
-\renewcommand \showlabelfont {\scriptsize\ttfamily\color{lightgray}}
-\renewcommand \showlabelrefline {\hrule width 0em height 2ex depth 0pt }
-% patches \label and possibly \cite command

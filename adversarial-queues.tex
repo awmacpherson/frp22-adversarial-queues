@@ -1,3 +1,4 @@
+% Keywords: queue, blockchain, mempool, cfmm, mev, dex, priority discipline, model, sandwich, slippage
 \documentclass[a4paper,11pt]{article}
 \usepackage{verbatim}
 \usepackage[style=alphabetic, url=false]{biblatex}
@@ -67,9 +68,6 @@
 %
 %\ExecuteBibliographyOptions[misc][url=false]
 
-\pagestyle{myheadings}
-\markright{ \hfill DRAFT\hfill}
-
 \title{Adversarial blockchain queues and trading on a CFMM}
 \author{Andrew W. Macpherson}
 \begin{document}
@@ -85,7 +83,6 @@ We find conditions under which the model behaves as a bulk-service queue with pr
 We study this setup in the context of orders to a CFMM DEX where the execution price a user receives may be quite sensitive to its positioning in the chain --- in particular, to a string of transactions scheduled for prior execution which is not knowable at the time of order creation.
 %
 We derive statistical models for the price impact of this order flow both in the presence and absence of MEV extraction activity.
-
 \end{abstract}
 
 \section{Introduction}
@@ -267,7 +264,7 @@ We write $\# S$ for the cardinality of a set $S$, and $\ell(B)$ for the cardinal
 
 \paragraph{Acknowledgements}
 
-The author would like to thank Flashbots for funding and supporting this work through the FRP grants programme.\footnote{https://github.com/flashbots/mev-research}
+The author would like to thank Flashbots for funding and supporting this work through the FRP grants programme.\footnote{https://github.com/flashbots/mev-research} Thanks are also due to Quintus Kilbourn, Mohammed Al-Husari, and Aata Hokoridani, for useful conversations and comments.
 
 \section{Model}
 
