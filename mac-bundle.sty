@@ -1,0 +1,25 @@
+%
+%  HEADER FILE BUNDLE
+%
+%  v2.0.0
+%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{mac-bundle}
+
+\RequirePackage{mac-util} % must be loaded first
+
+\pgfkeys{
+  theorem/counter/prefix/.code = {
+    \PassOptionsToPackage{counter/prefix=#1}{mac-thm}
+  },
+  xref/biblatex/backend/.code = {
+    \PassOptionsToPackage{biblatex/backend=#1}{mac-xref}
+  }
+}
+
+\ProcessPGFOptions
+
+\RequirePackage{mac-math}
+\RequirePackage{mac-thm}
+\RequirePackage{mac-typeset}
+\RequirePackage{mac-xref}

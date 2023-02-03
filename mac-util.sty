@@ -1,0 +1,44 @@
+%
+%  UTILITY PACKAGES
+%
+%  v2.0.0
+%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{mac-util}
+
+\RequirePackage{verbatim} 
+\begin{comment}
+Provides the comment environment.
+
+Note that this environment discards the rest of the line on which 
+\end{comment}
+% occurs, but throws a warning.
+
+\RequirePackage{etoolbox} 
+%
+% Provides \defcounter, \deflength which are local and
+% expand macros in the argument
+% E-tex provides \dimexpr, \glueexpr, \numexpr, \muexpr
+% Provides \patchcmd.
+% Provides \newtoggle, \toggletrue, \togglefalse, \iftoggle
+% Called by biblatex.
+%
+\RequirePackage{calc} 
+%
+% Redefines \setcounter, \addtocounter, \setlength, \addtolength
+% Provides \widthof command. 
+% Arithmetic is more user-friendly than the etoolbox interface.
+%
+ 
+%%% PROCESS PACKAGE OPTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\RequirePackage{kvsetkeys}
+%\RequirePackage{keyval}
+%\RequirePackage{xkeyval}
+
+\RequirePackage{pgfkeys}
+
+\newcommand{\ProcessPGFOptions}{
+  \DeclareOption*{\expandafter\pgfkeys\expandafter{\CurrentOption}}
+  \ProcessOptions
+}

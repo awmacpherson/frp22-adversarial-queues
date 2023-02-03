@@ -1,0 +1,54 @@
+%
+%%% INPUT, FONTS, LAYOUT
+%%
+%%% v1.0.0
+%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{mac-typeset}
+
+\RequirePackage[british]{babel}  
+% Spacing and hyphenation rules for English.
+
+\RequirePackage{fouriernc}     
+%\RequirePackage{helvet}
+%\renewcommand*\familydefault{\sfdefault}
+% Current font. Forces T1 font encoding.
+
+%\usepackage[T1]{fontenc}  
+% Use this if the imported font does not force T1 "Cork" font encoding
+% This ensures that ANSI characters ë, é, ç etc. are searchable in output
+% Also ensures that characters <, >, | render correctly.
+
+%\usepackage[utf8]{inputenc}
+% In the current model, all input files use ASCII (7 bit).
+
+\newcommand{\printlengths}{%
+  Top margin --- \the\topmargin\par
+  Head height --- \the\headheight\par
+  Head sep --- \the\headsep\par
+  Odd side margin --- \the\oddsidemargin\par
+  Even side margin --- \the\evensidemargin\par
+  Text height --- \the\textheight\par
+  Foot skip --- \the\footskip\par
+  Paper height --- \the\paperheight\par
+  Paper width --- \the\paperwidth\par
+  Margin par width --- \the\marginparwidth\par
+  Margin par sep --- \the\marginparsep\par
+  Par indent --- \the\parindent\par
+}
+
+\newenvironment{labelitems}{
+  \begin{list}{}{
+    \setlength{\leftmargin}{0pt}
+    \setlength{\itemindent}{\labelwidth}  
+    \addtolength{\itemindent}{\labelsep}
+    \renewcommand{\makelabel}[1]{\emph{##1}.}
+  } 
+}{ 
+  \end{list} 
+}
+
+\newcommand \newwrapper [1] {\newenvironment{#1}%
+  {\endgroup}%
+  {\begingroup\def\@currenvir{#1}}% hax to avoid a "no matching \end" error
+}

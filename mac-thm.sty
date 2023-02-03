@@ -1,0 +1,88 @@
+%
+%%  THEOREM ENVIRONMENTS
+%
+%%  v2.0.0
+%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{mac-thm}[2020/07/04 amsthm patch + defaults]
+
+\RequirePackage{mac-util}
+
+\makeatletter
+
+\RequirePackage{amsthm} % Provide proof environment, QED stack.
+\swapnumbers        % Theorem number precedes heading.
+
+% The following resets \end of theorem and proof environments to LaTeX
+% defaults, which suppress indentation on immediately following line.
+
+\makeatletter
+\patchcmd{\@endtheorem}{\@endpefalse }{}{}{} 
+\patchcmd{\endproof}{\@endpefalse}{}{}{}
+\makeatother
+
+% Set theorem number prefix counter
+
+
+\pgfkeys{counter/prefix/.initial={}}
+\ProcessPGFOptions
+
+% Initialise main theorem counter
+
+\newtoggle{theorem@counter@initialized}
+
+\newcommand{\InitializeTheoremCounter}{
+  \iftoggle{theorem@counter@initialized}{
+    \PackageWarning{mac-thm}{Theorems already initialized. Doing nothing.}
+  }{
+    \pgfkeys{counter/prefix/.get=\prefix}  % scoped to avoid redundant macros
+    \ifdefvoid{\prefix}{
+      \newtheorem{main@theorem}{}
+    }{
+      \newtheorem{main@theorem}{}[\prefix]
+    }
+    \toggletrue{theorem@counter@initialized}
+  }
+}
+
+\InitializeTheoremCounter
+
+% The prefix will be accessible as \p@main@theorem
+
+% FUNCTION \DeclareTheorem[style = last_used]{name}{heading}
+%
+% Provides starred unnumbered version
+
+\newcommand{\DeclareTheorem}[3][]{
+  \ifstrempty{#1}{
+    \newtheorem{#2}[main@theorem]{#3}
+    \newtheorem*{#2*}{#3}
+  }{
+    \theoremstyle{#1}
+    \newtheorem{#2}[main@theorem]{#3}
+    \newtheorem*{#2*}{#3}
+  }
+}
+
+% Some defaults
+
+%
+\DeclareTheorem[plain]{theorem}{Theorem}
+\DeclareTheorem{thm}{Theorem}
+\DeclareTheorem{proposition}{Proposition}
+\DeclareTheorem{prop}{Proposition}
+\DeclareTheorem{lemma}{Lemma}
+\DeclareTheorem{corollary}{Corollary}
+\DeclareTheorem{cor}{Corollary}
+\DeclareTheorem{conjecture}{Conjecture}
+\DeclareTheorem{conj}{Conjecture}
+\DeclareTheorem{hypothesis}{Hypothesis}
+%
+\DeclareTheorem[definition]{para}{}
+\DeclareTheorem{definition}{Definition}
+\DeclareTheorem{defn}{Definition}
+%
+\DeclareTheorem[remark]{remark}{Remark}
+\DeclareTheorem{rmk}{Remark}
+\DeclareTheorem{example}{Example}
+\DeclareTheorem{eg}{Example}

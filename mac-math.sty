@@ -1,0 +1,77 @@
+%
+%%% AMS PACKAGES
+%%
+%%% v2.0.1 
+%
+
+% Changelog.
+
+% 2.0.1
+% fixed \<< so it captures optional arguments to \begin{tikzcd} correctly.
+
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{mac-math}[2020/07/04 math symbols]
+
+\RequirePackage{amsmath}  
+% Provides the detested {align} env which I will change one day.
+% To do: modify preamble for align env. renewcommand eqnarray
+% To do: reimplement multicol (array) and intertext (amsmath env).
+% Provides \@mathmeasure with similar functionality to \widthof.
+
+% \RequirePackage{amstext} % Autoloaded by amsmath
+% Provides \text{} command which makes an \mbox in the current \style.
+
+% \RequirePackage{amsbsy} % Autoloaded by amsmath
+% makes bold symbolds; depreciated in favour of bm package
+
+% \RequirePackage{amsopn} % Autoloaded by amsmath
+% Provides \DeclareMathOperator.
+% This allows use of certain punctuation symbols;
+% resets vertical alignment for single character operators;
+% defines separate operator font (but default is rmfamily).
+
+\RequirePackage{amsfonts}
+% Provides \mathfrak (Euler fraktur alphabet).
+% Redefines \mathcal (Euler script alphabet).
+% Provides some other sizes of cm fonts (which LaTeX maybe provides?)
+
+\RequirePackage{amssymb}
+% Provides symbol fonts msam and msbm.
+
+% \DeclareMathAlphabet{\mathrmsl}{OT1}{cmr}{m}{sl}  % LaTeX command
+
+
+%%% DEFINING NEW OPERATORS %%%%%%%%%%%%%%%%%%%%%%
+
+\let\newfunction\DeclareMathOperator
+\newcommand \newconstant [2] { \newcommand #1 {{\mathord{{\mathbf{{#2}}}}}} }
+
+%%% STANDARD SYMBOLS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newfunction*{\colim}{colim}
+
+
+\newcommand\naturals{\mathbb N}
+\let\N\naturals
+\newcommand\integers{\mathbb Z}
+\let\Z\integers
+\newcommand\Q{\mathbb Q}
+\let\Q\rationals
+\newcommand\reals{\mathbb R}
+\let\R\reals
+\newcommand\complexes{\mathbb C}
+\let\C\complexes
+
+
+\newcommand{\defeq}{\mathrel{\vcenter{\hbox{\scriptsize:}}\!=}} % :=
+\newcommand{\eqdef}{\mathrel{=\!\vcenter{\hbox{\scriptsize:}}}} % =:
+
+
+%%% DIAGRAMS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\RequirePackage[svgnames]{xcolor}
+\RequirePackage{tikz-cd}  
+% This loads xcolor, potentially causing an options clash
+
+\tikzcdset{diagrams={baseline = -.5ex}, arrow style=math font}
