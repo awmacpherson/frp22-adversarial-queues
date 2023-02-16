@@ -1,16 +1,24 @@
 % Keywords: queue, blockchain, mempool, cfmm, mev, dex, priority discipline, model, sandwich, slippage
 \documentclass[a4paper,11pt]{article}
 \usepackage{verbatim}
+
+
 \usepackage[style=alphabetic, url=false]{biblatex}
+\setcounter{biburllcpenalty}{1}   % freely break URLs at lowercase
+\usepackage{csquotes} % prevents a warning for using biblatex with babel
+
 \usepackage[colorlinks=true,
                 linkcolor=teal,
                 citecolor=olive,
                 destlabel=true,
                 bookmarks=true]{hyperref}
+\usepackage{xurl}
+\hypersetup{breaklinks=true}
+
 \usepackage{bookmark} 
 \usepackage[margin=25mm,a4paper,includefoot]{geometry}
 \usepackage[theorem/counter/prefix=section]{mac-bundle}
-
+%\usepackage[hyphenbreaks]{breakurl}
 \usepackage{graphicx}
 
 
@@ -198,8 +206,9 @@ We exhibit this with a simple model where incentives force arbitrarily bad execu
 
 
 \subsection{Related work}
-
+\label{other-work}
 \paragraph{Blockchain queueing theory}
+
 Several groups of authors have applied queueing models to the case of blockchains to obtain formulae for expected transaction confirmation (i.e.~wait) times. 
 %
 In \cite{kasahara2019effect,kawasa2017transaction}, the authors consider a bulk service queue with general service times and priority discipline, a plausible model for `MEV-free' blockchains with priority fees. The formulas they obtain are expressed in terms of constants $\alpha_n$ which we do not know how to compute.
@@ -227,6 +236,7 @@ Meanwhile, \cite{0xblog2022measuring} provides an empirical study that gives som
 Another thread of research aims to develop novel queueing disciplines adapted to trades on a CFMM, for example via verifiable sequencing rules \cite{ferreira2022credible} or first arbitrage auctions \cite{josojo2022mev,nikete2022towards}.
 
 \subsection{Future directions}
+\label{future-directions}
 As far as I know, this work is the first attempt to define a probabilistic model of the blockchain mempool that incorporates both traditional queueing and incentive-based dynamics.
 %
 There are many directions in which future work could build on this model: empirical studies and more sophisticated modelling of the arrivals process; generalisations in which we drop the absolute time ordering to permit a distributed scheduler set; Markovian models in modelling the dependence of transaction arrivals on the previously observed mempool and state; more sophisticated information models in which the scheduler is blind to message payloads or other features.
@@ -1234,6 +1244,17 @@ Hence when traffic is not maxed out and the adversary is very well captalised, t
   Another one could be some kind of social insurance credit which is invalidated above a certain income or wealth level.
   
 \end{remark}
+
+\section{Conclusion}
+
+We have described the outline of a model of a blockchain mempool to which methods from both game or decision theory and queueing theory can be applied, and discussed two simplified limits at a level of detail that yields actual predictions.
+%
+With this type of model, protocol designers at the dapp or blockchain level can make predictions about the performance of their applications and hence deliver more accurate guarantees to users.
+
+While these limits by themselves are unrealistic in some ways, it is easy to see where we can begin improving them: more refined approaches to arrivals with some interdependence between orders, incomplete information environments for schedulers, imposition of more interesting verifiable sequencing rules, more careful treatment of special positions such as top of block, and so on.
+%
+The real test of our approach will be in applying it to less familiar queueing environments such as those discussed in \S\S\ref{other-work},\ref{future-directions}.
+
 
 \nocite{angeris2019analysis}
 \nocite{angeris2020improved}
